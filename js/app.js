@@ -70,7 +70,7 @@
   }
   function footerMarkup() {
     var s = CMS.siteSettings;
-    return '<div class="container"><div class="footer-grid"><div><div class="footer-brand"><span class="brand-mark"><i class="fa-solid fa-paw"></i></span><span><span class="brand-name">' + esc(s.name) + '</span><span class="brand-sub">MRUCZĄCA PRZYSTAŃ · POZNAŃ</span></span></div><p class="footer-copy">' + esc(s.tagline) + ' Dziękujemy, że jesteś częścią tej historii.</p><div class="social-row">' + socialLinksMarkup(s.socialLinks) + '</div></div><div><h3 class="footer-heading">Odwiedź nas</h3><div class="footer-links"><span>' + esc(s.address) + '</span><span>NIP: ' + esc(s.nip) + " · REGON: " + esc(s.regon) + '</span><span>' + esc(s.phone) + '</span><span>' + esc(s.email) + '</span></div></div><div><h3 class="footer-heading">Kocie sprawy</h3><div class="footer-links"><a href="#adopcja">Poznaj koty</a><a href="#dom-tymczasowy">Zostań domem tymczasowym</a><a href="#pomoc-rzeczowa">Lista potrzeb</a><a href="#wolontariat">Dołącz do wolontariatu</a><a href="#polityka-prywatnosci">Polityka prywatności</a></div></div></div><div class="footer-bottom"><span>© ' + new Date().getFullYear() + " " + esc(s.name) + '</span><span>Uszy do góry. Łapki w dobrych rękach. <i class="fa-solid fa-heart" style="color:#f4a261"></i></span></div></div>';
+    return '<div class="container"><div class="footer-grid"><div><div class="footer-brand"><img class="brand-logo footer-logo" src="assets/logo-kociamberki.png" alt=""><span><span class="brand-name">' + esc(s.name) + '</span><span class="brand-sub">MRUCZĄCA PRZYSTAŃ · POZNAŃ</span></span></div><p class="footer-copy">' + esc(s.tagline) + ' Dziękujemy, że jesteś częścią tej historii.</p><div class="social-row">' + socialLinksMarkup(s.socialLinks) + '</div></div><div><h3 class="footer-heading">Dane stowarzyszenia</h3><div class="footer-links"><span>NIP: ' + esc(s.nip) + " · REGON: " + esc(s.regon) + '</span></div></div><div><h3 class="footer-heading">Kocie sprawy</h3><div class="footer-links"><a href="#adopcja">Poznaj koty</a><a href="#dom-tymczasowy">Zostań domem tymczasowym</a><a href="#pomoc-rzeczowa">Lista potrzeb</a><a href="#wolontariat">Dołącz do wolontariatu</a><a href="#polityka-prywatnosci">Polityka prywatności</a></div></div></div><div class="footer-bottom"><span>© ' + new Date().getFullYear() + " " + esc(s.name) + '</span><span>Uszy do góry. Łapki w dobrych rękach. <i class="fa-solid fa-heart" style="color:#f4a261"></i></span></div></div>';
   }
   function pageHero(eyebrow, title, intro) {
     return '<section class="page-hero"><div class="container"><div class="section-label">' + esc(eyebrow) + '</div><h1>' + esc(title) + "</h1><p>" + esc(intro) + "</p></div></section>";
@@ -184,7 +184,7 @@
         var detail = drop.detail ? " · " + drop.detail : "";
         var copy = drop.name + ": " + drop.address + detail;
         return '<div class="drop-row"><div><strong>' + esc(drop.name) + '</strong><span>' + esc(drop.address + detail) + '</span></div><button class="button ghost small" data-action="copy" data-copy="' + attr(copy) + '"><i class="fa-regular fa-copy"></i> Kopiuj dane</button></div>';
-      }).join("") + "</div></div></section>";
+      }).join("") + '<p style="margin:12px 0 0;color:#766c62;font-size:12px;line-height:1.6">' + esc(c.courierNote) + "</p></div></div></section>";
   }
   function seasonalView() {
     var copy = CMS.pagesContent.santa;
@@ -208,25 +208,38 @@
   function pawsView() {
     var c = CMS.pagesContent.paws;
     return pageHero(c.eyebrow, c.title, c.intro) +
-      '<section class="section compact"><div class="container"><div class="package-grid">' + c.packages.map(function (pack) { return '<article class="package-card"><span style="font-size:25px">🐾</span><h3>' + esc(pack.name) + '</h3><strong class="package-price">' + esc(pack.amount) + "</strong><p>" + esc(pack.description) + "</p>" + external(CMS.siteSettings.links.rescuedPaws, "Wybieram pakiet", "button small") + "</article>"; }).join("") + '</div><p style="text-align:center;color:#858985;font-size:11px;margin-top:20px">Płatność i szczegóły pakietu są obsługiwane przez Ocalone Łapki.</p></div></section>';
+      '<section class="section compact"><div class="container"><div class="content-card"><h3>' + esc(c.processTitle) + '</h3><ol class="step-list">' + c.process.map(function (step) { return "<li>" + esc(step) + "</li>"; }).join("") + '</ol></div><div class="package-grid">' + c.packages.map(function (pack) { return '<article class="package-card"><span style="font-size:25px">🐾</span><h3>' + esc(pack.name) + '</h3><strong class="package-price">' + esc(pack.amount) + "</strong><p>" + esc(pack.description) + "</p>" + external(CMS.siteSettings.links.rescuedPaws, "Wybieram pakiet", "button small") + "</article>"; }).join("") + '<p style="grid-column:1/-1;text-align:center;color:#858985;font-size:11px;margin:4px 0 0">Płatność i szczegóły pakietu są obsługiwane przez Ocalone Łapki.</p></div></div></section>';
   }
   function bazaarView() {
     var c = CMS.pagesContent.bazaar;
+    var status = c.statusDetails[c.status] || c.statusDetails.soon;
+    var statusIcon = c.status === "live" ? "🔔" : c.status === "collecting" ? "📦" : "🗓️";
+    var statusLink = c.status === "live" ? "Dołącz do trwającego bazarku" : "Obserwuj grupę bazarkową";
     return pageHero(c.eyebrow, c.title, c.intro) +
-      '<section class="section compact"><div class="container"><div class="split-card"><img class="split-photo" src="https://images.unsplash.com/photo-1513360371669-4adf3dd7dff8?auto=format&fit=crop&w=1100&q=85" alt="Drobiazgi przygotowane na koci bazarek"><div class="split-content"><div class="section-label">Licytuj i pomagaj</div><h2>Każda wylicytowana rzecz ma dobre zakończenie.</h2><p>Dołącz do grupy, wybierz fant i sprawdź zasady licytacji. Cała aktywność odbywa się na Facebooku.</p>' + external(CMS.siteSettings.links.bazaar, "Przejdź do bazarku", "button") + "</div></div></div></section>";
+      '<section class="section compact"><div class="container"><div class="bazaar-status" data-status="' + attr(c.status) + '"><span class="bazaar-status-icon" aria-hidden="true">' + statusIcon + '</span><div><h2>' + esc(status.title) + '</h2><p>' + esc(status.text) + '</p><div style="margin-top:14px">' + external(CMS.siteSettings.links.bazaar, statusLink, "button small") + '</div></div></div><div class="section-head" style="margin:34px 0 0"><div><div class="section-label">Wspomnienia z grupy</div><h2>Poprzednie edycje</h2><p>Każda edycja miała swój cel. Archiwum można uzupełniać o krótkie podsumowania, kiedy dziewczyny potwierdzą wyniki.</p></div></div><div class="bazaar-archive">' + c.editions.map(function (edition) { return '<article class="bazaar-edition"><img src="' + attr(edition.image) + '" alt="Grafika: ' + esc(edition.title) + '" loading="lazy"><div class="bazaar-edition-body"><div class="section-label">' + esc(edition.date) + '</div><h3>' + esc(edition.title) + '</h3><p><strong>Cel edycji:</strong> ' + esc(edition.goal) + '</p><p>' + esc(edition.description) + '</p><p class="edition-summary"><strong>Podsumowanie:</strong> ' + esc(edition.summary) + '</p></div></article>'; }).join("") + "</div></div></section>";
   }
   function financeView() {
     var c = CMS.pagesContent.finance;
+    var cards = c.fundraisers.map(function (campaign) {
+      var raisedKnown = typeof campaign.raised === "number" && typeof campaign.target === "number" && campaign.target > 0;
+      var progress = raisedKnown ? Math.min(100, Math.round(campaign.raised / campaign.target * 100)) : 0;
+      var url = CMS.siteSettings.links[campaign.linkKey];
+      var updatedLabel = campaign.updatedAt ? campaign.updatedAt.split("-").reverse().join(".") : "";
+      return '<article class="fundraiser-card"><img class="fundraiser-photo" src="' + attr(campaign.image) + '" alt="Zdjęcie do zbiórki: ' + esc(campaign.title) + '" loading="lazy"><div class="fundraiser-body"><span class="fundraiser-category">' + esc(campaign.category) + '</span><h3>' + esc(campaign.title) + '</h3><p>' + esc(campaign.description) + '</p>' + (raisedKnown ? '<div class="fundraiser-amount"><strong>' + esc(new Intl.NumberFormat("pl-PL").format(campaign.raised)) + ' zł</strong><span>z ' + esc(new Intl.NumberFormat("pl-PL").format(campaign.target)) + ' zł</span></div><div class="fundraiser-progress" role="progressbar" aria-label="Postęp zbiórki" aria-valuenow="' + progress + '" aria-valuemin="0" aria-valuemax="100"><span style="width:' + progress + '%"></span></div><div class="fundraiser-meta"><span>' + progress + '% celu' + (campaign.donors ? ' · ' + esc(campaign.donors) + ' osób' : '') + '</span><span>stan na ' + esc(updatedLabel) + '</span></div>' : '<div class="fundraiser-amount"><strong>Aktualny postęp</strong><span>na stronie zbiórki</span></div>') + external(url, "Pokaż zbiórkę", "button") + '</div><div class="fundraiser-foot">Zbiórka jest prowadzona na zewnętrznej platformie.</div></article>';
+    }).join("");
     return pageHero(c.eyebrow, c.title, c.intro) +
-      '<section class="section compact"><div class="container"><div class="package-grid"><article class="package-card"><span style="font-size:28px">💛</span><h3>Zbiórka główna</h3><p>Wsparcie leczenia, karmy i codziennej opieki nad podopiecznymi.</p>' + external(CMS.siteSettings.links.mainFundraiser, "Wesprzyj zbiórkę", "button") + '</article><article class="package-card"><span style="font-size:28px">🐱</span><h3>Cel szczegółowy</h3><p>Pomoc dla Rity i jej dalszej drogi do bezpiecznego domu.</p>' + external(CMS.siteSettings.links.goalFundraiser, "Poznaj cel Rity", "button amber") + '</article><article class="package-card"><span style="font-size:28px">📦</span><h3>Pomoc rzeczowa</h3><p>Jeśli wolisz podarować konkretną rzecz, sprawdź aktualną listę potrzeb.</p><a class="button ghost" href="#pomoc-rzeczowa">Zobacz listę potrzeb</a></article></div></div></section>';
+      '<section class="section compact"><div class="container"><div class="fundraiser-grid">' + cards + '</div><p style="margin:16px 2px 0;color:#858985;font-size:11px;line-height:1.6">' + esc(c.manualUpdateNote) + '</p></div></section>';
   }
   function taxView() {
     var c = CMS.pagesContent.tax;
     var krsRow = c.krs
       ? '<div class="drop-row"><div><strong>KRS</strong><span>' + esc(c.krs) + '</span></div><button class="button ghost small" data-action="copy" data-copy="' + attr(c.krs) + '"><i class="fa-regular fa-copy"></i> Kopiuj</button></div>'
       : '<div class="drop-row"><div><strong>KRS</strong><span>Numer do potwierdzenia</span></div></div>';
+    var goalRow = c.goalCodeConfirmed
+      ? '<div class="drop-row"><div><strong>Cel szczegółowy</strong><span>' + esc(c.goal + (c.goalCode ? " " + c.goalCode : "")) + '</span></div><button class="button ghost small" data-action="copy" data-copy="' + attr(c.goal + (c.goalCode ? " " + c.goalCode : "")) + '"><i class="fa-regular fa-copy"></i> Kopiuj</button></div>'
+      : '<div class="drop-row"><div><strong>Cel szczegółowy Kociamberków</strong><span>' + esc(c.goal + " · kod celu do uzupełnienia") + '</span></div></div>';
     return pageHero(c.eyebrow, c.title, c.intro) +
-      '<section class="section compact"><div class="container"><div class="content-card" style="max-width:700px;margin:auto"><h3>Dane do rozliczenia</h3><p style="color:#747976;font-size:13px;line-height:1.6">' + esc(c.notice) + '</p>' + krsRow + '<div class="drop-row"><div><strong>Cel szczegółowy</strong><span>' + esc(c.goal) + '</span></div><button class="button ghost small" data-action="copy" data-copy="' + attr(c.goal) + '"><i class="fa-regular fa-copy"></i> Kopiuj</button></div></div></div></section>';
+      '<section class="section compact"><div class="container"><div class="tax-explainer"><h2>' + esc(c.whyTitle) + '</h2><p>' + esc(c.whyText) + '</p></div><div class="content-card" style="max-width:800px;margin:auto"><h3>Dane do rozliczenia · ' + esc(c.partner) + '</h3><p style="color:#747976;font-size:13px;line-height:1.6">' + esc(c.notice) + '</p>' + krsRow + goalRow + '<p style="margin:12px 0;color:#858985;font-size:11px">Przed wpisaniem danych sprawdź aktualną instrukcję stowarzyszenia i Fundacji Młodzi-Młodym.</p>' + external(CMS.siteSettings.links.taxInfo, "Informacje Fundacji Młodzi-Młodym", "button ghost small") + '</div></div></section>';
   }
   function newsView() {
     var c = CMS.pagesContent.news;
@@ -237,7 +250,7 @@
   function contactView() {
     var s = CMS.siteSettings, c = CMS.pagesContent.contact;
     return pageHero(c.eyebrow, c.title, c.intro) +
-      '<section class="section compact"><div class="container contact-grid"><div class="content-card"><h3>Znajdź nas</h3><div class="contact-item"><span class="contact-icon"><i class="fa-solid fa-location-dot"></i></span><div><small>Adres</small><strong>' + esc(s.address) + '</strong></div></div><div class="contact-item"><span class="contact-icon"><i class="fa-solid fa-phone"></i></span><div><small>Telefon</small><strong>' + esc(s.phone) + '</strong></div></div><div class="contact-item"><span class="contact-icon"><i class="fa-regular fa-envelope"></i></span><div><small>E-mail</small><strong>' + esc(s.email) + '</strong></div></div><div class="contact-item"><span class="contact-icon"><i class="fa-solid fa-id-card"></i></span><div><small>Dane stowarzyszenia</small><strong>NIP ' + esc(s.nip) + " · REGON " + esc(s.regon) + "</strong></div></div></div><div class=\"content-card\"><h3>Jesteśmy też tutaj</h3><p style=\"color:#747976;line-height:1.65;font-size:13px\">Najłatwiej złapiesz nas w wiadomości na Instagramie. Odpowiemy, gdy tylko skończymy karmić, sprzątać albo głaskać.</p><div class=\"social-row\">" + socialLinksMarkup(s.socialLinks) + "</div></div></div></section>";
+      '<section class="section compact"><div class="container contact-grid"><div class="content-card"><h3>Napisz do nas</h3><p style="color:#747976;line-height:1.65;font-size:13px">Najłatwiej skontaktujesz się z nami przez wiadomość na Instagramie lub Facebooku. Odpowiemy, kiedy skończymy karmić, sprzątać albo głaskać.</p><div class="social-row">' + socialLinksMarkup(s.socialLinks) + '</div></div><div class="content-card"><h3>Dane stowarzyszenia</h3><div class="contact-item"><span class="contact-icon"><i class="fa-solid fa-id-card"></i></span><div><small>NIP · REGON</small><strong>' + esc(s.nip) + " · " + esc(s.regon) + "</strong></div></div></div></div></section>";
   }
   function santaModal(cat) {
     var drop = CMS.siteSettings.dropPoints[0];
@@ -349,9 +362,15 @@
   }
   function closeMobileMenu() {
     mobileMenu.classList.remove("open");
+    mobileMenu.querySelectorAll("details[open]").forEach(function (group) { group.open = false; });
     document.getElementById("menu-toggle").setAttribute("aria-expanded", "false");
     document.getElementById("menu-toggle").setAttribute("aria-label", "Otwórz menu");
     document.getElementById("menu-toggle").innerHTML = '<i class="fa-solid fa-bars"></i>';
+  }
+  function closeDesktopMenus(except) {
+    document.querySelectorAll(".desktop-nav .nav-group[open]").forEach(function (group) {
+      if (group !== except) group.open = false;
+    });
   }
   function showCookies() {
     var accepted = false;
@@ -412,13 +431,31 @@
     this.setAttribute("aria-label", open ? "Zamknij menu" : "Otwórz menu");
     this.innerHTML = open ? '<i class="fa-solid fa-xmark"></i>' : '<i class="fa-solid fa-bars"></i>';
   });
+  document.querySelectorAll(".desktop-nav .nav-group").forEach(function (group) {
+    group.addEventListener("toggle", function () {
+      if (group.open) closeDesktopMenus(group);
+    });
+  });
+  document.querySelectorAll("#mobile-menu details").forEach(function (group) {
+    group.addEventListener("toggle", function () {
+      if (!group.open) return;
+      mobileMenu.querySelectorAll("details[open]").forEach(function (other) {
+        if (other !== group) other.open = false;
+      });
+    });
+  });
+  document.addEventListener("pointerdown", function (event) {
+    if (!event.target.closest(".desktop-nav")) closeDesktopMenus();
+  });
   window.addEventListener("hashchange", function () {
     if (routeName() === "quiz") { quizIndex = 0; quizAnswers = []; quizResults = null; }
+    closeDesktopMenus();
     render();
     window.scrollTo(0, 0);
   });
   document.addEventListener("keydown", function (event) {
     if (event.key === "Escape" && !modalRoot.hidden) closeModal();
+    if (event.key === "Escape") { closeDesktopMenus(); if (mobileMenu.classList.contains("open")) closeMobileMenu(); }
     if (!modalRoot.hidden && event.key === "ArrowRight") galleryMove(1);
     if (!modalRoot.hidden && event.key === "ArrowLeft") galleryMove(-1);
   });
@@ -444,7 +481,10 @@
   });
   document.addEventListener("click", function (event) {
     var link = event.target.closest("a[href^='#']");
-    if (link && mobileMenu.classList.contains("open")) closeMobileMenu();
+    if (link) {
+      closeDesktopMenus();
+      if (mobileMenu.classList.contains("open")) closeMobileMenu();
+    }
   });
   render();
   showCookies();

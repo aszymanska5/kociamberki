@@ -5,16 +5,11 @@ window.KOCIAMBERKI_CMS = {
     shortName: "Kociamberki",
     tagline: "Dajemy kotom czas, troskę i dobry adres.",
     instagramHandle: "@kociambry_poznan",
-    address: "ul. Madziarska 2, 61-615 Poznań",
     nip: "9721367876",
     regon: "542315965",
-    phone: "Numer telefonu do uzupełnienia",
-    email: "Adres e-mail do uzupełnienia",
     socialLinks: [
       { label: "Instagram", handle: "@kociambry_poznan", url: "https://www.instagram.com/kociambry_poznan/" },
-      { label: "Facebook", handle: "Link do uzupełnienia", url: "" },
-      { label: "TikTok", handle: "Link do uzupełnienia", url: "" },
-      { label: "Linktree", handle: "Link do uzupełnienia", url: "" }
+      { label: "Facebook", handle: "Grupa Kociamberkowy Bazarek", url: "https://www.facebook.com/groups/869517238772503" }
     ],
     dropPoints: [
       { name: "Paczkomat InPost", address: "ul. Sarmacka 7, Poznań", detail: "" },
@@ -26,8 +21,9 @@ window.KOCIAMBERKI_CMS = {
       volunteerForm: "",
       rescuedPaws: "https://ocalonelapki.pl/organizacja/511/stowarzyszenie-kociamberki-mruczaca-przystan",
       bazaar: "https://www.facebook.com/groups/869517238772503",
-      mainFundraiser: "http://pomagam.pl/arryry",
+      mainFundraiser: "https://pomagam.pl/arryry",
       goalFundraiser: "https://pomagam.pl/pbc3yp",
+      taxInfo: "https://dolacz.fsmm.pl/",
       privacy: "#polityka-prywatnosci"
     }
   },
@@ -223,7 +219,7 @@ window.KOCIAMBERKI_CMS = {
     contact: {
       eyebrow: "Kontakt",
       title: "Porozmawiajmy o kocich sprawach.",
-      intro: "Jesteśmy w Poznaniu. Napisz do nas w sprawie adopcji, domu tymczasowego, wolontariatu albo aktualnych potrzeb."
+      intro: "W sprawie adopcji, domu tymczasowego, wolontariatu i aktualnych potrzeb napisz do nas przez Facebooka lub Instagram."
     },
     adoption: {
       eyebrow: "Dom stały",
@@ -263,31 +259,92 @@ window.KOCIAMBERKI_CMS = {
         { name: "Żwirek", note: "Zbrylający, najlepiej drobny i bezzapachowy." },
         { name: "Suplementy", note: "Po wcześniejszym uzgodnieniu aktualnych potrzeb." },
         { name: "Smaczki", note: "Pomagają w oswajaniu i budowaniu dobrych skojarzeń." }
-      ]
+      ],
+      courierNote: "Wysyłkę kurierem ustalamy indywidualnie. Napisz do nas na Facebooku lub Instagramie, a adres przekażemy w wiadomości prywatnej."
     },
     paws: {
       eyebrow: "Ocalone Łapki",
       title: "Mały pakiet, wielka pomoc dla kocich łapek.",
-      intro: "Wybierz pakiet wsparcia na platformie Ocalone Łapki. Cała płatność odbywa się na zewnętrznej stronie zbiórki.",
+      intro: "Na Ocalone Łapki możesz wybrać jeden z dostępnych pakietów, a platforma zamienia wsparcie na konkretne produkty dla podopiecznych. Płatność i realizacja zamówienia odbywają się na zewnętrznej stronie.",
+      processTitle: "Jak działa wsparcie przez Ocalone Łapki?",
+      process: [
+        "Wybierasz pakiet Mini, Standard lub Maxi na stronie Ocalone Łapki.",
+        "Platforma przyjmuje płatność i rozlicza ją jako wsparcie produktowe — środki nie trafiają do nas jako gotówka.",
+        "Produkty z oferty platformy są przeznaczane na potrzeby organizacji, a status zamówienia możesz śledzić w Ocalonych Łapkach."
+      ],
       packages: [{ name: "Mini", amount: "49,99 zł", description: "Na pełną miseczkę i codzienną troskę." }, { name: "Standard", amount: "99,99 zł", description: "Na spokojniejszy zapas potrzebnych rzeczy." }, { name: "Maxi", amount: "149,99 zł", description: "Większy pakiet dobra dla naszych podopiecznych." }]
     },
     bazaar: {
       eyebrow: "Bazarek",
       title: "Fanty, licytacje i dużo mruczącego dobra.",
-      intro: "Na naszej grupie bazarkowej znajdziesz rękodzieło, drobiazgi i rzeczy przekazane przez darczyńców. Licytując, pomagasz nam opiekować się podopiecznymi."
+      intro: "Na dedykowanej grupie Facebook pojawiają się fanty do licytacji, a każda edycja ma swój cel szczegółowy. Termin, cel i zasady mogą się zmieniać — aktualny status znajdziesz poniżej.",
+      status: "soon",
+      statusDetails: {
+        collecting: { title: "Zbieramy fanty na kolejną edycję", text: "Przygotowujemy bazarek i kompletujemy rzeczy do licytacji. Szczegóły zbiórki fantów publikujemy na naszej grupie Facebook." },
+        live: { title: "Bazarek trwa!", text: "Wejdź do dedykowanej grupy, sprawdź aktualne fanty i zasady licytacji. Każda edycja wspiera wskazany cel szczegółowy." },
+        soon: { title: "Szczegóły kolejnej edycji już wkrótce", text: "Cel, termin i lista fantów zmieniają się przy każdej edycji. Obserwuj naszą grupę Facebook — tam pojawią się najnowsze informacje." }
+      },
+      editions: [
+        {
+          title: "Operacja Uśmiech · Bazarek Kociamberkowy",
+          date: "17–21 sierpnia",
+          goal: "Operacja Uśmiech",
+          image: "assets/bazarek-operacja-usmiech.png",
+          description: "Edycja bazarku poświęcona Operacji Uśmiech. Fanty i licytacje wspierały ten konkretny cel.",
+          summary: "Licytacje wspierały Operację Uśmiech. Kwotę i końcowy efekt edycji dopiszemy po potwierdzeniu archiwalnych danych."
+        },
+        {
+          title: "Kociamberkowy Bazarek · Akcja kastracja",
+          date: "12–14 czerwca",
+          goal: "Akcja kastracja",
+          image: "assets/bazarek-akcja-kastracja.png",
+          description: "Edycja bazarku wspierająca Akcję Kastrację. Każda licytacja pomagała realizować cel wskazany dla tej edycji.",
+          summary: "Edycja była poświęcona Akcji Kastracja. Kwotę i liczbę zabiegów dopiszemy po potwierdzeniu danych."
+        }
+      ]
     },
     finance: {
       eyebrow: "Wsparcie finansowe",
       title: "Pomóż nam opłacić leczenie i codzienną opiekę.",
-      intro: "Zbiórki prowadzone są na zewnętrznych platformach. Przejdź do wybranej strony, aby poznać aktualny cel i wesprzeć go bezpośrednio."
+      intro: "Zbiórki prowadzimy na zewnętrznych platformach, gdzie znajdziesz aktualny cel, postęp i historię wpłat. Wpłata trafia bezpośrednio przez wybraną platformę.",
+      fundraisers: [
+        {
+          title: "Zbiórka główna Kociamberków",
+          category: "Bieżące potrzeby przystani",
+          description: "Wsparcie leczenia, karmy i codziennej opieki nad podopiecznymi. Aktualny postęp i szczegółowy opis są na stronie zbiórki.",
+          image: "https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?auto=format&fit=crop&w=1100&q=85",
+          raised: 12996,
+          target: 20000,
+          donors: 250,
+          updatedAt: "2026-10-25",
+          linkKey: "mainFundraiser"
+        },
+        {
+          title: "Zbiórka celowa: Rita",
+          category: "Pomoc konkretnemu kotu",
+          description: "Zbiórka przeznaczona na cel związany z Ritą. Szczegóły, aktualny postęp i rozliczenie sprawdź na stronie kampanii.",
+          image: "https://images.unsplash.com/photo-1574158622682-e40e69881006?auto=format&fit=crop&w=1100&q=85",
+          raised: null,
+          target: null,
+          donors: null,
+          updatedAt: "",
+          linkKey: "goalFundraiser"
+        }
+      ],
+      manualUpdateNote: "Kwoty i liczby wspierających w tym podglądzie są wpisywane ręcznie. Przed publikacją sprawdź je na stronie każdej zbiórki."
     },
     tax: {
       eyebrow: "1,5% podatku",
-      title: "Sprawdź, komu możesz przekazać 1,5% podatku.",
-      intro: "Zanim przekażesz 1,5%, sprawdź aktualne dane uprawnionej organizacji w swoim rozliczeniu podatkowym.",
-      notice: "Numer KRS i status uprawniający do otrzymywania 1,5% wymagają potwierdzenia przez stowarzyszenie. Uzupełnij te dane przed publikacją tej sekcji.",
-      krs: "",
-      goal: "Stowarzyszenie Kociamberki – Mrucząca Przystań"
+      title: "Przekaż 1,5% na kocią opiekę.",
+      intro: "Kociamberki korzystają z obsługi Fundacji Studenckiej Młodzi-Młodym. W rozliczeniu wpisuje się dane tej organizacji oraz dokładny cel szczegółowy przypisany Kociamberkom.",
+      whyTitle: "Dlaczego przez Młodzi-Młodym?",
+      whyText: "Fundacja Młodzi-Młodym ma status organizacji pożytku publicznego i udostępnia partnerom swój KRS oraz indywidualny cel szczegółowy. W PIT wpisujesz KRS Fundacji, a kod celu pozwala przypisać przekazane 1,5% do Kociamberków. Przekazanie tej części podatku nie zwiększa kwoty podatku.",
+      notice: "W zeznaniu PIT wpisz KRS Fundacji Młodzi-Młodym, a w polu celu szczegółowego podaj dokładną nazwę i indywidualny kod przypisany Kociamberkom. Środki są przekazywane Fundacji, a następnie rozliczane na rzecz partnera zgodnie z porozumieniem. Przed rozliczeniem sprawdź dane w aktualnej instrukcji stowarzyszenia.",
+      krs: "0000270261",
+      goal: "Stowarzyszenie Kociamberki – Mrucząca Przystań",
+      goalCode: "",
+      goalCodeConfirmed: false,
+      partner: "Fundacja Studencka Młodzi-Młodym"
     },
     privacy: {
       eyebrow: "Informacje",
