@@ -205,7 +205,7 @@
     var cats = CMS.cats.filter(function (cat) { return cat.status === status; });
     var copy = CMS.pagesContent[status];
     return pageHero(copy.eyebrow, copy.title, copy.intro) +
-      '<section class="section compact"><div class="container"><div class="rainbow-grid">' + cats.map(function (cat) { return '<article class="memory-cat"><a class="memory-profile-link" href="#kot/' + attr(cat.id) + '"><img src="' + attr(cat.photo) + '" alt="Kot ' + esc(cat.name) + '" loading="lazy"><h3>' + esc(cat.name) + "</h3></a></article>"; }).join("") + "</div></div></section>";
+      '<section class="section compact"><div class="container"><div class="rainbow-grid">' + cats.map(function (cat) { return '<article class="memory-cat"><img src="' + attr(cat.photo) + '" alt="Kot ' + esc(cat.name) + '" loading="lazy"><h3>' + esc(cat.name) + "</h3></article>"; }).join("") + "</div></div></section>";
   }
   function volunteerView() {
     var c = CMS.pagesContent.volunteer, icons = ["fa-bowl-food", "fa-car", "fa-camera", "fa-calendar-heart"];

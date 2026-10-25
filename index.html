@@ -136,6 +136,17 @@
       .profile-gallery-stage{grid-template-columns:32px minmax(0,1fr) 32px;gap:4px}
       .cat-profile-gallery .gallery-control,.profile-gallery-spacer{width:30px;height:30px}
     }
+    @media(min-width:851px){
+      .split-card{height:clamp(460px,34vw,540px)}
+      .split-photo{min-height:0}
+      .split-content{display:flex;flex-direction:column;justify-content:center;padding:clamp(28px,3vw,44px)}
+      .split-content h2{font-size:clamp(29px,3vw,38px);line-height:1.08;margin-bottom:8px}
+      .split-content p{margin:8px 0;font-size:13px;line-height:1.6}
+      .feature-list{gap:8px;margin:13px 0}
+      .feature-list li{font-size:12px;line-height:1.45}
+      .split-content>.button{align-self:flex-start}
+    }
+    @media(max-width:620px){.fundraiser-widget{height:clamp(400px,75vw,430px)}}
   </style>
 </head>
 <body>
@@ -165,7 +176,7 @@
   <div id="modal-root" class="modal-backdrop" hidden aria-modal="true" role="dialog" aria-label="Szczegóły"></div>
   <div id="toast" class="toast" role="status" aria-live="polite"></div>
   <aside id="cookie-banner" class="cookie-banner" hidden aria-label="Informacja o cookies"></aside>
-  <script src="data/cms-data.js?v=20261025-physical-profile"></script>
-  <script src="js/app.js?v=20261025-physical-profile"></script>
+  <script src="data/cms-data.js?v=20261025-archive-spacing"></script>
+  <script src="js/app.js?v=20261025-archive-spacing"></script>
 </body>
 </html>
