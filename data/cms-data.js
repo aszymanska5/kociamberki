@@ -22,7 +22,7 @@ window.KOCIAMBERKI_CMS = {
       rescuedPaws: "https://ocalonelapki.pl/organizacja/511/stowarzyszenie-kociamberki-mruczaca-przystan",
       bazaar: "https://www.facebook.com/groups/869517238772503",
       mainFundraiser: "https://pomagam.pl/arryry",
-      goalFundraiser: "https://pomagam.pl/pbc3yp",
+      currentFundraiser: "https://pomagam.pl/gwmwhm",
       taxInfo: "https://dolacz.fsmm.pl/",
       privacy: "#polityka-prywatnosci"
     }
@@ -38,7 +38,7 @@ window.KOCIAMBERKI_CMS = {
       wishes: ["Mokra karma wysokomięsna", "Żwirek zbrylający", "Podkłady higieniczne"], seasonal: true, quizShy: false
     },
     {
-      id: "bąbel", name: "Bąbel", sex: "Kocur", ageMonths: 9, status: "urgent", fivfelv: "FIV/FeLV: ujemne",
+      id: "babel", name: "Bąbel", sex: "Kocur", ageMonths: 9, status: "urgent", fivfelv: "FIV/FeLV: ujemne",
       company: "Na dokocenie", temperament: "energiczny", tags: ["zabawa", "towarzystwo-kota", "duzo-domu"],
       photo: "https://images.unsplash.com/photo-1573865526739-10659fec78a5?auto=format&fit=crop&w=900&q=85",
       photos: ["https://images.unsplash.com/photo-1573865526739-10659fec78a5?auto=format&fit=crop&w=1000&q=85", "https://images.unsplash.com/photo-1533738363-b7f9aef128ce?auto=format&fit=crop&w=1000&q=85", "https://images.unsplash.com/photo-1511044568932-338cba0ad803?auto=format&fit=crop&w=1000&q=85"],
@@ -309,10 +309,10 @@ window.KOCIAMBERKI_CMS = {
       intro: "Zbiórki prowadzimy na zewnętrznych platformach, gdzie znajdziesz aktualny cel, postęp i historię wpłat. Wpłata trafia bezpośrednio przez wybraną platformę.",
       fundraisers: [
         {
-          title: "Zbiórka główna Kociamberków",
-          category: "Bieżące potrzeby przystani",
-          description: "Wsparcie leczenia, karmy i codziennej opieki nad podopiecznymi. Aktualny postęp i szczegółowy opis są na stronie zbiórki.",
-          image: "https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?auto=format&fit=crop&w=1100&q=85",
+          title: "Ratujmy Kociamberkowo",
+          category: "Zbiórka główna",
+          description: "Wsparcie spłaty faktur weterynaryjnych i codziennej opieki nad kotami z kociarni. Aktualny opis i postęp sprawdzisz na Pomagam.pl.",
+          image: "https://static.pomagam.pl/media/project_photos/cache/F0zRL5DD0_kU.jpg",
           raised: 12996,
           target: 20000,
           donors: 250,
@@ -320,15 +320,15 @@ window.KOCIAMBERKI_CMS = {
           linkKey: "mainFundraiser"
         },
         {
-          title: "Zbiórka celowa: Rita",
-          category: "Pomoc konkretnemu kotu",
-          description: "Zbiórka przeznaczona na cel związany z Ritą. Szczegóły, aktualny postęp i rozliczenie sprawdź na stronie kampanii.",
-          image: "https://images.unsplash.com/photo-1574158622682-e40e69881006?auto=format&fit=crop&w=1100&q=85",
+          title: "Bieżąca zbiórka Kociamberków",
+          category: "Aktualny cel",
+          description: "Ta zbiórka wspiera aktualny cel dziewczyn. Szczegóły, postęp i sposób wykorzystania wpłat sprawdzisz bezpośrednio na stronie kampanii.",
+          image: "https://static.pomagam.pl/media/project_photos/cache/F0zRL5DD0_kU.jpg",
           raised: null,
           target: null,
           donors: null,
           updatedAt: "",
-          linkKey: "goalFundraiser"
+          linkKey: "currentFundraiser"
         }
       ],
       manualUpdateNote: "Kwoty i liczby wspierających w tym podglądzie są wpisywane ręcznie. Przed publikacją sprawdź je na stronie każdej zbiórki."
@@ -341,9 +341,9 @@ window.KOCIAMBERKI_CMS = {
       whyText: "Fundacja Młodzi-Młodym ma status organizacji pożytku publicznego i udostępnia partnerom swój KRS oraz indywidualny cel szczegółowy. W PIT wpisujesz KRS Fundacji, a kod celu pozwala przypisać przekazane 1,5% do Kociamberków. Przekazanie tej części podatku nie zwiększa kwoty podatku.",
       notice: "W zeznaniu PIT wpisz KRS Fundacji Młodzi-Młodym, a w polu celu szczegółowego podaj dokładną nazwę i indywidualny kod przypisany Kociamberkom. Środki są przekazywane Fundacji, a następnie rozliczane na rzecz partnera zgodnie z porozumieniem. Przed rozliczeniem sprawdź dane w aktualnej instrukcji stowarzyszenia.",
       krs: "0000270261",
-      goal: "Stowarzyszenie Kociamberki – Mrucząca Przystań",
-      goalCode: "",
-      goalCodeConfirmed: false,
+      goal: "KOCIAMBERKI",
+      goalCode: "22457",
+      goalCodeConfirmed: true,
       partner: "Fundacja Studencka Młodzi-Młodym"
     },
     privacy: {
@@ -353,3 +353,74 @@ window.KOCIAMBERKI_CMS = {
     }
   }
 };
+
+/* Zdjęcia pochodzą z prezentacji profili kotów udostępnionej przez Kociamberki.
+   Pola filtrowania pozostają przykładowe; wszystkie widoczne dane opisowe są lorem ipsum. */
+(function applyPreviewCatProfiles() {
+  var root = window.KOCIAMBERKI_CMS;
+  var sway = "https://weu-cdn.sway.static.microsoft";
+  var profiles = {
+    rita: [
+      sway + "/s/UJbzecsXAC9La2B7/images/nSqY4BGMgCZwdD?quality=2048&allowAnimation=false",
+      sway + "/s/wpvN3NPc6enj0VfD/images/iAMTKbM0NhKriL?quality=1024&allowAnimation=false"
+    ],
+    babel: [
+      sway + "/s/cEOlLuLk8tCZRvnI/images/TCBzlmOuL9CPzp?quality=2048&allowAnimation=false",
+      sway + "/s/wpvN3NPc6enj0VfD/images/MYyVtkWhQm-vn1?quality=1024&allowAnimation=false"
+    ],
+    klusek: [
+      sway + "/s/G7qON7QGjZYIe7Ea/images/0BiyYP6NNGEyD8?quality=2048&allowAnimation=false",
+      sway + "/s/wpvN3NPc6enj0VfD/images/KO4qTiNy9misI-?quality=1024&allowAnimation=false"
+    ],
+    migotka: [
+      sway + "/s/LqrwCnnN24KYM0ph/images/LnHo8hPHdig_aa?quality=2000&allowAnimation=false",
+      sway + "/s/wpvN3NPc6enj0VfD/images/uvZ7dlVnBf2RGO?quality=1024&allowAnimation=false"
+    ],
+    mietek: [
+      sway + "/s/2GokG7iEOyz6tnOs/images/MrW047B8W-3ECr?quality=1600&allowAnimation=false",
+      sway + "/s/wpvN3NPc6enj0VfD/images/yp2R8ASucsEVx-?quality=800&allowAnimation=false"
+    ],
+    mglka: [
+      sway + "/s/aSommXUTHTR4BYEM/images/C9NMnIT17uqaL9?quality=1600&allowAnimation=false",
+      sway + "/s/wpvN3NPc6enj0VfD/images/gt5VTokUxYuIlw?quality=800&allowAnimation=false"
+    ],
+    pestka: [
+      sway + "/s/QM82Fh93aAiheIMD/images/uB8bPHTRaSq-Yr?quality=1600&allowAnimation=false",
+      sway + "/s/wpvN3NPc6enj0VfD/images/hDuQ-lmGhreUsE?quality=1024&allowAnimation=false"
+    ],
+    tulipan: [
+      sway + "/s/tIdE7rlh1qRvtkTm/images/DfAO3ss1DPYGyo?quality=2048&allowAnimation=false",
+      sway + "/s/wpvN3NPc6enj0VfD/images/Br22byHgDA7OGM?quality=1024&allowAnimation=false"
+    ],
+    figa: [
+      sway + "/s/cViVx5KtVuaayjTE/images/n3tT8JmUZQQKuD?quality=1600&allowAnimation=false",
+      sway + "/s/wpvN3NPc6enj0VfD/images/NFIXz29B0MifvJ?quality=800&allowAnimation=false"
+    ],
+    luna: [
+      sway + "/s/eoseZjAGy9jljKhX/images/w2xdYdnDnGnU_Y?quality=2048&allowAnimation=false",
+      sway + "/s/wpvN3NPc6enj0VfD/images/SFonUSNH5xkDsx?quality=1024&allowAnimation=false"
+    ],
+    feliks: [
+      sway + "/s/wpvN3NPc6enj0VfD/images/RTcBt6pj4cfafy?quality=800&allowAnimation=false"
+    ],
+    iskierka: [
+      sway + "/s/9WhD4OiKulYqU6fs/images/EMMu54HwgxiKUi?quality=1920&allowAnimation=false",
+      sway + "/s/wpvN3NPc6enj0VfD/images/w7vKTaMtGro6CT?quality=800&allowAnimation=false"
+    ]
+  };
+
+  root.cats.forEach(function (cat) {
+    var photos = profiles[cat.id];
+    if (!photos) return;
+    cat.photo = photos[0];
+    cat.photos = photos;
+    cat.sexLabel = "Lorem ipsum";
+    cat.ageLabel = "Lorem ipsum";
+    cat.fivfelv = "Lorem ipsum";
+    cat.company = "Lorem ipsum";
+    cat.temperamentLabel = "Lorem ipsum";
+    cat.description = "";
+    cat.bioTag = "Lorem ipsum";
+    if (cat.wishes) cat.wishes = ["Lorem ipsum", "Lorem ipsum", "Lorem ipsum"];
+  });
+}());

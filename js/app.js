@@ -54,16 +54,19 @@
   }
   function socialLinksMarkup(items) {
     return items.filter(function (item) { return item.url; }).map(function (item) {
-      return '<a class="social-chip" href="' + attr(item.url) + '" target="_blank" rel="noopener noreferrer">' + esc(item.label) + " ↗</a>";
+      var key = item.label.toLowerCase();
+      var icon = key === "instagram" ? "fa-instagram" : key === "facebook" ? "fa-facebook-f" : "fa-arrow-up-right-from-square";
+      var style = key === "instagram" ? "instagram" : key === "facebook" ? "facebook" : "generic";
+      return '<a class="social-chip social-' + style + '" href="' + attr(item.url) + '" target="_blank" rel="noopener noreferrer" aria-label="Otwórz ' + esc(item.label) + (item.handle ? ": " + esc(item.handle) : "") + '"><i class="fa-brands ' + icon + '" aria-hidden="true"></i><span>' + esc(item.label) + '</span><i class="fa-solid fa-arrow-up-right-from-square social-external" aria-hidden="true"></i></a>';
     }).join("");
   }
   function activeCats() { return CMS.cats.filter(function (cat) { return ["urgent", "adoption", "foster"].indexOf(cat.status) !== -1; }); }
   function catCard(cat) {
     var statusClass = cat.status === "urgent" ? "urgent" : cat.status === "foster" ? "foster" : "";
     var icon = cat.status === "urgent" ? "fa-triangle-exclamation" : cat.status === "foster" ? "fa-house" : "fa-paw";
-    return '<article class="cat-card ' + statusClass + '"><div class="cat-card-top"><span class="status-badge ' + statusClass + '"><i class="fa-solid ' + icon + '"></i> ' + esc(labelStatus(cat.status)) + '</span><span>' + (cat.sex === "Kotka" ? "♀️" : "♂️") + "</span></div>" +
-      '<img class="cat-photo" src="' + attr(cat.photo) + '" alt="Portret kota o imieniu ' + esc(cat.name) + '" loading="lazy"><h3>' + esc(cat.name) + '</h3><p class="cat-intro">' + esc(cat.sex) + " · " + esc(ageText(cat.ageMonths)) + '</p><div class="cat-meta"><div class="meta-item"><span class="meta-label">Badania</span><span class="meta-value">' + esc(cat.fivfelv) + '</span></div><div class="meta-item"><span class="meta-label">Towarzystwo</span><span class="meta-value">' + esc(cat.company) + "</span></div></div>" +
-      '<div class="cat-card-actions"><button class="button ghost small" data-action="profile" data-cat="' + attr(cat.id) + '"><i class="fa-regular fa-heart"></i> Poznaj bliżej</button><button class="button small" data-action="adopt" data-cat="' + attr(cat.id) + '">Chcę dać dom</button></div></article>';
+    return '<article class="cat-card ' + statusClass + '"><div class="cat-card-top"><span class="status-badge ' + statusClass + '"><i class="fa-solid ' + icon + '"></i> ' + esc(labelStatus(cat.status)) + '</span><span aria-hidden="true">🐾</span></div>' +
+      '<img class="cat-photo" src="' + attr(cat.photo) + '" alt="Portret kota o imieniu ' + esc(cat.name) + '" loading="lazy"><h3>' + esc(cat.name) + '</h3><p class="cat-intro">' + esc(cat.sexLabel || "Lorem ipsum") + " · " + esc(cat.ageLabel || "Lorem ipsum") + '</p><div class="cat-meta"><div class="meta-item"><span class="meta-label">Badania</span><span class="meta-value">' + esc(cat.fivfelv) + '</span></div><div class="meta-item"><span class="meta-label">Towarzystwo</span><span class="meta-value">' + esc(cat.company) + "</span></div></div>" +
+      '<div class="cat-card-actions"><a class="button ghost small" href="#kot/' + attr(cat.id) + '"><i class="fa-regular fa-heart"></i> Poznaj bliżej</a><button class="button small" data-action="adopt" data-cat="' + attr(cat.id) + '">Chcę dać dom</button></div></article>';
   }
   function newsCard(item) {
     return '<article class="news-card"><img src="' + attr(item.image) + '" alt="" loading="lazy"><div class="news-body"><div class="news-meta"><span>' + esc(item.category) + "</span><span>·</span><time datetime=\"" + attr(item.date) + '">' + esc(formatDate(item.date)) + "</time></div><h3>" + esc(item.title) + "</h3><p>" + esc(item.excerpt) + '</p><a class="text-link" href="#aktualnosci">Czytaj więcej <i class="fa-solid fa-arrow-right"></i></a></div></article>';
@@ -79,10 +82,10 @@
     var copy = CMS.pagesContent.home;
     var urgent = CMS.cats.filter(function (cat) { return cat.status === "urgent"; });
     var latest = CMS.news.slice().sort(function (a, b) { return b.date.localeCompare(a.date); }).slice(0, 3);
-    return '<section class="hero"><div class="container hero-grid"><div><span class="eyebrow">' + esc(copy.eyebrow) + '</span><h1>' + esc(copy.title).replace(". ", ".<br><em>") + "</em></h1><p class=\"hero-copy\">" + esc(copy.intro) + '</p><div class="hero-actions"><a href="#adopcja" class="button"><i class="fa-solid fa-paw"></i> Poznaj koty</a><a href="#pomoc-rzeczowa" class="button ghost"><i class="fa-solid fa-box-open"></i> Pomóż po swojemu</a></div><div class="hero-trust"><span class="avatar-stack"><img src="' + attr(CMS.cats[0].photo) + '" alt=""><img src="' + attr(CMS.cats[5].photo) + '" alt=""><img src="' + attr(CMS.cats[2].photo) + '" alt=""></span><span>' + esc(copy.trustLine) + '</span></div></div><div class="hero-photo-wrap"><img class="hero-photo" src="https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?auto=format&fit=crop&w=1200&q=90" alt="Kot wylegujący się w miękkim świetle"><div class="hero-sticker"><i class="fa-solid fa-heart"></i><span>Adopcja zmienia<br>dwie historie naraz</span></div><div class="hero-note">tu mruczy się bezpiecznie ✨</div></div></div></section>' +
+    return '<section class="hero"><div class="container hero-grid"><div><span class="eyebrow">' + esc(copy.eyebrow) + '</span><h1>' + esc(copy.title).replace(". ", ".<br><em>") + "</em></h1><p class=\"hero-copy\">" + esc(copy.intro) + '</p><div class="hero-actions"><a href="#adopcja" class="button"><i class="fa-solid fa-paw"></i> Poznaj koty</a><a href="#pomoc-rzeczowa" class="button ghost"><i class="fa-solid fa-box-open"></i> Pomóż po swojemu</a></div><div class="hero-trust"><span class="avatar-stack"><img src="' + attr(CMS.cats[0].photo) + '" alt=""><img src="' + attr(CMS.cats[5].photo) + '" alt=""><img src="' + attr(CMS.cats[2].photo) + '" alt=""></span><span>' + esc(copy.trustLine) + '</span></div></div><div class="hero-photo-wrap"><img class="hero-photo" src="' + attr(CMS.cats[0].photo) + '" alt="Kot z Mruczącej Przystani"><div class="hero-sticker"><i class="fa-solid fa-heart"></i><span>Adopcja zmienia<br>dwie historie naraz</span></div><div class="hero-note">tu mruczy się bezpiecznie ✨</div></div></div></section>' +
       '<section class="section compact"><div class="container"><div class="section-head"><div><div class="section-label">Czekają na Ciebie</div><h2>' + esc(copy.urgentTitle) + '</h2><p>' + esc(copy.urgentIntro) + '</p></div><a href="#adopcja" class="text-link">Zobacz wszystkich <i class="fa-solid fa-arrow-right"></i></a></div><div class="cards-grid">' + urgent.map(catCard).join("") + "</div></div></section>" +
       '<section class="section"><div class="container"><div class="quiz-banner"><div><h3>' + esc(copy.quizTitle) + '</h3><p>' + esc(copy.quizIntro) + '</p></div><a class="button" href="#quiz"><i class="fa-solid fa-wand-magic-sparkles"></i> Zrób quiz doboru</a></div></div></section>' +
-      '<section class="section soft-section"><div class="container"><div class="split-card"><img class="split-photo" src="https://images.unsplash.com/photo-1495360010541-f48722b34f7d?auto=format&fit=crop&w=1100&q=85" alt="Kot odpoczywa w ciepłym domu" loading="lazy"><div class="split-content"><div class="section-label">' + esc(copy.supportEyebrow) + '</div><h2>' + esc(copy.supportTitle) + '</h2><p>' + esc(copy.supportIntro) + '</p><ul class="feature-list">' + copy.supportWays.map(function (way) { return '<li><i class="fa-solid fa-circle-check"></i><span>' + esc(way) + "</span></li>"; }).join("") + '</ul><a class="button amber" href="#pomoc-rzeczowa">' + esc(copy.supportAction) + ' <i class="fa-solid fa-arrow-right"></i></a></div></div></div></section>' +
+      '<section class="section soft-section"><div class="container"><div class="split-card"><img class="split-photo" src="' + attr(CMS.cats[5].photo) + '" alt="Kot odpoczywa w ciepłym domu" loading="lazy"><div class="split-content"><div class="section-label">' + esc(copy.supportEyebrow) + '</div><h2>' + esc(copy.supportTitle) + '</h2><p>' + esc(copy.supportIntro) + '</p><ul class="feature-list">' + copy.supportWays.map(function (way) { return '<li><i class="fa-solid fa-circle-check"></i><span>' + esc(way) + "</span></li>"; }).join("") + '</ul><a class="button amber" href="#pomoc-rzeczowa">' + esc(copy.supportAction) + ' <i class="fa-solid fa-arrow-right"></i></a></div></div></div></section>' +
       '<section class="section"><div class="container"><div class="section-head"><div><div class="section-label">Z przystani</div><h2>' + esc(copy.newsTitle) + '</h2><p>' + esc(copy.newsIntro) + '</p></div><a href="#aktualnosci" class="text-link">Wszystkie aktualności <i class="fa-solid fa-arrow-right"></i></a></div><div class="news-grid">' + latest.map(newsCard).join("") + "</div></div></section>";
   }
   function getFilteredCats() {
@@ -102,7 +105,7 @@
     if (!deck.length) return '<div class="empty-state">Na razie nie ma tu kotów do pokazania. Zajrzyj za chwilę.</div>';
     if (tinderIndex >= deck.length) tinderIndex = 0;
     var cat = deck[tinderIndex];
-    return '<div class="tinder-wrap"><article class="tinder-card" id="tinder-card"><img class="tinder-photo" src="' + attr(cat.photo) + '" alt="Kot ' + esc(cat.name) + '" loading="lazy"><div class="tinder-content"><div class="tinder-title"><h3>' + esc(cat.name) + '</h3><span>' + esc(ageText(cat.ageMonths)) + " · " + (cat.sex === "Kotka" ? "kotka ♀" : "kocur ♂") + '</span></div><div class="cat-meta"><div class="meta-item"><span class="meta-label">Status</span><span class="meta-value">' + esc(labelStatus(cat.status)) + '</span></div><div class="meta-item"><span class="meta-label">Towarzystwo</span><span class="meta-value">' + esc(cat.company) + '</span></div></div><p class="tinder-bio">“' + esc(cat.bioTag || cat.description) + '”</p><div class="tinder-actions"><button class="button ghost" data-action="next-cat">⏮️ Następny Kociamber</button><button class="button amber" data-action="profile" data-cat="' + attr(cat.id) + '"><i class="fa-solid fa-magnifying-glass"></i> Poznaj bliżej</button><button class="button match" data-action="match" data-cat="' + attr(cat.id) + '"><i class="fa-solid fa-heart"></i> Mruczący match!</button></div></div></article><p class="cat-intro" style="margin-top:14px">Przesuń zdjęcie w lewo, aby pominąć, lub w prawo, aby dać serduszko · karta ' + (tinderIndex + 1) + " z " + deck.length + "</p></div>";
+    return '<div class="tinder-wrap"><article class="tinder-card" id="tinder-card"><img class="tinder-photo" src="' + attr(cat.photo) + '" alt="Kot ' + esc(cat.name) + '" loading="lazy"><div class="tinder-content"><div class="tinder-title"><h3>' + esc(cat.name) + '</h3><span>' + esc(cat.ageLabel || "Lorem ipsum") + " · " + esc(cat.sexLabel || "Lorem ipsum") + '</span></div><div class="cat-meta"><div class="meta-item"><span class="meta-label">Status</span><span class="meta-value">' + esc(labelStatus(cat.status)) + '</span></div><div class="meta-item"><span class="meta-label">Towarzystwo</span><span class="meta-value">' + esc(cat.company) + '</span></div></div><p class="tinder-bio">“' + esc(cat.bioTag || "Lorem ipsum") + '”</p><div class="tinder-actions"><button class="button ghost" data-action="next-cat">⏮️ Następny Kociamber</button><a class="button amber" href="#kot/' + attr(cat.id) + '"><i class="fa-solid fa-magnifying-glass"></i> Poznaj bliżej</a><button class="button match" data-action="match" data-cat="' + attr(cat.id) + '"><i class="fa-solid fa-heart"></i> Mruczący match!</button></div></div></article><p class="cat-intro" style="margin-top:14px">Przesuń zdjęcie w lewo, aby pominąć, lub w prawo, aby dać serduszko · karta ' + (tinderIndex + 1) + " z " + deck.length + "</p></div>";
   }
   function adoptionView() {
     var filtered = getFilteredCats();
@@ -164,7 +167,7 @@
     var copy = CMS.pagesContent.quiz;
     return pageHero("Twoja kocia trójka", copy.resultsTitle, copy.resultsIntro) +
       '<section class="section compact"><div class="container"><div class="quiz-panel"><div class="quiz-results">' + quizResults.map(function (result) {
-        return '<article class="quiz-result"><img src="' + attr(result.cat.photo) + '" alt="Kot ' + esc(result.cat.name) + '"><div><span class="quiz-result-label">' + esc(result.label) + '</span><h4>' + esc(result.cat.name) + " · " + esc(ageText(result.cat.ageMonths)) + '</h4><p>' + esc(result.text) + '</p><button class="text-link" style="margin-top:8px;border:0;background:none;padding:0;cursor:pointer" data-action="profile" data-cat="' + attr(result.cat.id) + '">Poznaj profil <i class="fa-solid fa-arrow-right"></i></button></div></article>';
+        return '<article class="quiz-result"><img src="' + attr(result.cat.photo) + '" alt="Kot ' + esc(result.cat.name) + '"><div><span class="quiz-result-label">' + esc(result.label) + '</span><h4>' + esc(result.cat.name) + " · " + esc(result.cat.ageLabel || "Lorem ipsum") + '</h4><p>' + esc(result.text) + '</p><a class="text-link" style="margin-top:8px" href="#kot/' + attr(result.cat.id) + '">Poznaj profil <i class="fa-solid fa-arrow-right"></i></a></div></article>';
       }).join("") + '</div><div class="quiz-controls"><button class="button ghost" data-action="quiz-reset">← Zacznij od nowa</button><a href="#adopcja" class="button">Zobacz wszystkie koty</a></div></div></div></section>';
   }
   function adoptionContentView() {
@@ -191,14 +194,14 @@
     var cats = CMS.cats.filter(function (cat) { return cat.seasonal && ["urgent", "adoption", "foster"].indexOf(cat.status) !== -1; });
     return pageHero(copy.eyebrow, copy.title, copy.intro) +
       '<section class="section compact"><div class="container"><div class="cards-grid">' + cats.map(function (cat) {
-        return '<article class="cat-card ' + (cat.status === "urgent" ? "urgent" : cat.status === "foster" ? "foster" : "") + '"><span class="status-badge"><i class="fa-solid fa-gift"></i> Koci Mikołaj</span><img class="cat-photo" src="' + attr(cat.photo) + '" alt="Kot ' + esc(cat.name) + '" loading="lazy"><h3>' + esc(cat.name) + '</h3><p class="cat-intro">' + esc(cat.sex) + " · " + esc(ageText(cat.ageMonths)) + " · " + esc(cat.fivfelv) + '</p><p style="color:#737875;font-size:13px;line-height:1.65">' + esc(cat.description || "Ten kociamber czeka na spokojny dom i wsparcie.") + '</p><div class="drop-box" style="padding:15px;margin:12px 0"><strong style="font-size:12px">🎁 Lista życzeń do Mikołaja</strong><ul class="check-list" style="margin:10px 0 0">' + (cat.wishes || []).map(function (wish) { return '<li><i class="fa-solid fa-star"></i><span>' + esc(wish) + "</span></li>"; }).join("") + '</ul></div><button class="button" style="width:100%" data-action="santa" data-cat="' + attr(cat.id) + '">🎅 Zostań Mikołajem ' + esc(cat.name) + "</button></article>";
+        return '<article class="cat-card ' + (cat.status === "urgent" ? "urgent" : cat.status === "foster" ? "foster" : "") + '"><span class="status-badge"><i class="fa-solid fa-gift"></i> Koci Mikołaj</span><img class="cat-photo" src="' + attr(cat.photo) + '" alt="Kot ' + esc(cat.name) + '" loading="lazy"><h3><a href="#kot/' + attr(cat.id) + '">' + esc(cat.name) + '</a></h3><p class="cat-intro">' + esc(cat.sexLabel || "Lorem ipsum") + " · " + esc(cat.ageLabel || "Lorem ipsum") + " · " + esc(cat.fivfelv) + '</p><p style="color:#737875;font-size:13px;line-height:1.65">Lorem ipsum</p><div class="drop-box" style="padding:15px;margin:12px 0"><strong style="font-size:12px">🎁 Lista życzeń do Mikołaja</strong><ul class="check-list" style="margin:10px 0 0">' + (cat.wishes || []).map(function (wish) { return '<li><i class="fa-solid fa-star"></i><span>' + esc(wish) + "</span></li>"; }).join("") + '</ul></div><button class="button" style="width:100%" data-action="santa" data-cat="' + attr(cat.id) + '">🎅 Zostań Mikołajem ' + esc(cat.name) + "</button></article>";
       }).join("") + "</div></div></section>";
   }
   function memoryView(status) {
     var cats = CMS.cats.filter(function (cat) { return cat.status === status; });
     var copy = CMS.pagesContent[status];
     return pageHero(copy.eyebrow, copy.title, copy.intro) +
-      '<section class="section compact"><div class="container"><div class="rainbow-grid">' + cats.map(function (cat) { return '<article class="memory-cat"><img src="' + attr(cat.photo) + '" alt="Kot ' + esc(cat.name) + '" loading="lazy"><h3>' + esc(cat.name) + "</h3></article>"; }).join("") + "</div></div></section>";
+      '<section class="section compact"><div class="container"><div class="rainbow-grid">' + cats.map(function (cat) { return '<article class="memory-cat"><a class="memory-profile-link" href="#kot/' + attr(cat.id) + '"><img src="' + attr(cat.photo) + '" alt="Kot ' + esc(cat.name) + '" loading="lazy"><h3>' + esc(cat.name) + "</h3></a></article>"; }).join("") + "</div></div></section>";
   }
   function volunteerView() {
     var c = CMS.pagesContent.volunteer, icons = ["fa-bowl-food", "fa-car", "fa-camera", "fa-calendar-heart"];
@@ -258,16 +261,19 @@
     var copy = drop.name + ": " + drop.address + detail + " · Dar dla: " + cat.name;
     openModal('<div class="success-card"><div class="success-icon">🎁</div><h2>Zostań Mikołajem ' + esc(cat.name) + '</h2><p>Wybierz coś z listy życzeń i wyślij paczkę do naszego punktu. Dopisz imię <strong>' + esc(cat.name) + '</strong>, żebyśmy wiedzieli, dla kogo jest prezent.</p><div class="drop-box" style="text-align:left"><strong>' + esc(drop.name) + '</strong><p style="margin:7px 0;color:#766a60;font-size:13px">' + esc(drop.address + detail) + '</p><button class="button ghost small" data-action="copy" data-copy="' + attr(copy) + '"><i class="fa-regular fa-copy"></i> Kopiuj instrukcję wysyłki</button></div><button class="button" style="margin-top:14px" data-action="close-modal">Gotowe, dziękuję</button></div>');
   }
-  function profileModal(cat) {
+  function catProfileView(cat) {
     activeGalleryCat = cat;
     activeGalleryIndex = 0;
-    var description = cat.description ? '<p>' + esc(cat.description) + "</p>" :
-      '<div class="sleepy-note"><img src="https://images.unsplash.com/photo-1511044568932-338cba0ad803?auto=format&fit=crop&w=500&q=80" alt="Śpiący kot"><strong>😴 OPIS W TRAKCIE DRZEMKI, NIEDŁUGO SIĘ POJAWI!</strong><br>(Opis czeka na akceptację Naczelnego Mruczka – dopytaj o mnie u dziewczyn!)</div>';
     var photos = cat.photos && cat.photos.length ? cat.photos : [cat.photo];
-    var gallery = '<div class="modal-gallery"><img class="modal-image" id="gallery-image" src="' + attr(photos[0]) + '" alt="Zdjęcie kota ' + esc(cat.name) + '"><button class="gallery-control prev" data-action="gallery-prev" aria-label="Poprzednie zdjęcie"><i class="fa-solid fa-chevron-left"></i></button><button class="gallery-control next" data-action="gallery-next" aria-label="Następne zdjęcie"><i class="fa-solid fa-chevron-right"></i></button><div class="gallery-dots">' + photos.map(function (_, index) { return '<button class="gallery-dot ' + (index === 0 ? "active" : "") + '" data-action="gallery-go" data-index="' + index + '" aria-label="Zdjęcie ' + (index + 1) + '"></button>'; }).join("") + "</div></div>";
-    var body = '<button class="modal-close" data-action="close-modal" aria-label="Zamknij"><i class="fa-solid fa-xmark"></i></button>' + gallery + '<div class="modal-body"><div class="modal-heading"><div><span class="section-label">' + esc(labelStatus(cat.status)) + '</span><h2>' + esc(cat.name) + '</h2></div><span class="status-badge ' + (cat.status === "urgent" ? "urgent" : cat.status === "foster" ? "foster" : "") + '">' + (cat.sex === "Kotka" ? "Kotka ♀️" : "Kocur ♂️") + "</span></div><div class=\"modal-metagrid\"><div class=\"meta-item\"><span class=\"meta-label\">Wiek</span><span class=\"meta-value\">" + esc(ageText(cat.ageMonths)) + '</span></div><div class="meta-item"><span class="meta-label">Badania</span><span class="meta-value">' + esc(cat.fivfelv) + '</span></div><div class="meta-item"><span class="meta-label">Towarzystwo</span><span class="meta-value">' + esc(cat.company) + '</span></div><div class="meta-item"><span class="meta-label">Charakter</span><span class="meta-value">' + esc(cat.temperament || "do poznania") + "</span></div></div>" + description + '<div style="display:flex;flex-wrap:wrap;gap:10px;margin-top:20px"><button class="button" data-action="adopt" data-cat="' + attr(cat.id) + '">Chcę adoptować ' + esc(cat.name) + "</button>" + (cat.wishes ? '<button class="button ghost" data-action="santa" data-cat="' + attr(cat.id) + '">🎁 Lista życzeń</button>' : "") + "</div></div>";
-    openModal(body);
-    modalRoot.setAttribute("aria-label", "Profil kota " + cat.name);
+    var back = cat.status === "adopted" ? "#adoptowane" : cat.status === "rainbow" ? "#teczowy-most" : "#adopcja";
+    var backLabel = cat.status === "adopted" ? "Wróć do adoptowanych" : cat.status === "rainbow" ? "Wróć do wspomnień" : "Wróć do podopiecznych";
+    var controls = photos.length > 1
+      ? '<button class="gallery-control prev" data-action="gallery-prev" aria-label="Poprzednie zdjęcie"><i class="fa-solid fa-chevron-left"></i></button><button class="gallery-control next" data-action="gallery-next" aria-label="Następne zdjęcie"><i class="fa-solid fa-chevron-right"></i></button><div class="gallery-dots">' + photos.map(function (_, index) { return '<button class="gallery-dot ' + (index === 0 ? "active" : "") + '" data-action="gallery-go" data-index="' + index + '" aria-label="Zdjęcie ' + (index + 1) + '"></button>'; }).join("") + "</div>"
+      : "";
+    var gallery = '<div class="cat-profile-gallery"><img class="cat-profile-image" id="gallery-image" src="' + attr(photos[0]) + '" alt="Zdjęcie kota ' + esc(cat.name) + '">' + controls + (photos.length > 1 ? '<span class="gallery-count" id="gallery-count">1 / ' + photos.length + '</span>' : "") + "</div>";
+    var adoptAction = cat.status === "adopted" || cat.status === "rainbow" ? '<p class="profile-unavailable">Lorem ipsum</p>' : '<button class="button" data-action="adopt" data-cat="' + attr(cat.id) + '">' + (cat.status === "foster" ? "Chcę zostać domem tymczasowym dla " : "Chcę adoptować ") + esc(cat.name) + "</button>";
+    var sleepy = cat.description ? '<div class="content-card cat-profile-description"><h2>O mnie</h2><p>' + esc(cat.description) + "</p></div>" : '<div class="sleepy-note cat-profile-sleepy"><span class="sleepy-illustration" aria-hidden="true">😴🐈</span><strong>😴 OPIS W TRAKCIE DRZEMKI, NIEDŁUGO SIĘ POJAWI!</strong><span>(Opis czeka na akceptację Naczelnego Mruczka – dopytaj o mnie u dziewczyn!)</span></div>';
+    return '<section class="page-hero cat-profile-hero"><div class="container"><a class="text-link" href="' + back + '"><i class="fa-solid fa-arrow-left"></i> ' + backLabel + '</a></div></section><section class="section compact"><div class="container"><article class="cat-profile-page"><div class="cat-profile-grid">' + gallery + '<div class="cat-profile-info"><span class="status-badge ' + (cat.status === "urgent" ? "urgent" : cat.status === "foster" ? "foster" : "") + '">' + esc(labelStatus(cat.status)) + '</span><h1>' + esc(cat.name) + '</h1><p class="cat-profile-kicker">Lorem ipsum</p><div class="cat-profile-facts"><div class="meta-item"><span class="meta-label">Płeć</span><span class="meta-value">' + esc(cat.sexLabel || "Lorem ipsum") + '</span></div><div class="meta-item"><span class="meta-label">Wiek</span><span class="meta-value">' + esc(cat.ageLabel || "Lorem ipsum") + '</span></div><div class="meta-item"><span class="meta-label">FIV/FeLV</span><span class="meta-value">' + esc(cat.fivfelv) + '</span></div><div class="meta-item"><span class="meta-label">Towarzystwo</span><span class="meta-value">' + esc(cat.company) + '</span></div><div class="meta-item"><span class="meta-label">Charakter</span><span class="meta-value">' + esc(cat.temperamentLabel || "Lorem ipsum") + '</span></div></div><div class="cat-profile-cta">' + adoptAction + (cat.wishes ? '<button class="button ghost" data-action="santa" data-cat="' + attr(cat.id) + '">🎁 Lista życzeń</button>' : "") + '</div></div></div>' + sleepy + '</article></div></section>';
   }
   function openModal(content) {
     modalRoot.innerHTML = '<div class="modal" role="document">' + content + "</div>";
@@ -280,7 +286,8 @@
     modalRoot.hidden = true;
     modalRoot.innerHTML = "";
     document.body.style.overflow = "";
-    activeGalleryCat = null;
+    var current = routeName();
+    activeGalleryCat = current.indexOf("kot/") === 0 ? catById(current.slice(4)) : null;
   }
   function galleryMove(delta, exact) {
     if (!activeGalleryCat) return;
@@ -288,7 +295,9 @@
     activeGalleryIndex = exact == null ? (activeGalleryIndex + delta + photos.length) % photos.length : exact;
     var image = document.getElementById("gallery-image");
     if (image) image.src = photos[activeGalleryIndex];
-    modalRoot.querySelectorAll(".gallery-dot").forEach(function (dot, index) { dot.classList.toggle("active", index === activeGalleryIndex); });
+    document.querySelectorAll(".gallery-dot").forEach(function (dot, index) { dot.classList.toggle("active", index === activeGalleryIndex); });
+    var count = document.getElementById("gallery-count");
+    if (count) count.textContent = (activeGalleryIndex + 1) + " / " + photos.length;
   }
   function showMatch(cat) {
     var matches = [];
@@ -316,6 +325,10 @@
     document.body.removeChild(field);
   }
   function pageTitle(route) {
+    if (route.indexOf("kot/") === 0) {
+      var profileCat = catById(route.slice(4));
+      return profileCat ? profileCat.name : "Profil kota";
+    }
     var titles = {
       adopcja: "Do adopcji", quiz: "Quiz doboru kota", "koci-mikolaj": "Całoroczny Koci Mikołaj",
       adoptowane: "Adoptowane", "teczowy-most": "Za Tęczowym Mostem", "dom-staly": "Dom stały",
@@ -326,7 +339,9 @@
     return titles[route] || "Mrucząca Przystań";
   }
   function render() {
-    currentRoute = routes[routeName()] ? routeName() : "start";
+    var requestedRoute = routeName();
+    currentRoute = (routes[requestedRoute] || requestedRoute.indexOf("kot/") === 0) ? requestedRoute : "start";
+    if (currentRoute.indexOf("kot/") !== 0) activeGalleryCat = null;
     if (currentRoute !== "adopcja") tinderMode = false;
     var page = "";
     if (currentRoute === "start") page = homeView();
@@ -345,6 +360,10 @@
     else if (currentRoute === "wolontariat") page = volunteerView();
     else if (currentRoute === "aktualnosci") page = newsView();
     else if (currentRoute === "kontakt") page = contactView();
+    else if (currentRoute.indexOf("kot/") === 0) {
+      var requestedCat = catById(currentRoute.slice(4));
+      page = requestedCat ? catProfileView(requestedCat) : pageHero("Profil kota", "Nie znaleźliśmy takiego kociamberka.", "Sprawdź adres lub wróć do listy podopiecznych.") + '<section class="section compact"><div class="container"><a class="button" href="#adopcja">Wróć do kotów</a></div></section>';
+    }
     else if (currentRoute === "polityka-prywatnosci") {
       var privacy = CMS.pagesContent.privacy;
       page = pageHero(privacy.eyebrow, privacy.title, privacy.intro) + '<section class="section compact"><div class="container"><a class="button ghost" href="#start">Wróć na stronę główną</a></div></section>';
@@ -386,7 +405,7 @@
     var action = target.getAttribute("data-action");
     if (action === "profile") {
       var profileCat = catById(target.getAttribute("data-cat"));
-      if (profileCat) profileModal(profileCat);
+      if (profileCat) { closeModal(); location.hash = "kot/" + profileCat.id; }
     } else if (action === "adopt") {
       var adoptCat = catById(target.getAttribute("data-cat"));
       if (adoptCat) {
@@ -456,8 +475,8 @@
   document.addEventListener("keydown", function (event) {
     if (event.key === "Escape" && !modalRoot.hidden) closeModal();
     if (event.key === "Escape") { closeDesktopMenus(); if (mobileMenu.classList.contains("open")) closeMobileMenu(); }
-    if (!modalRoot.hidden && event.key === "ArrowRight") galleryMove(1);
-    if (!modalRoot.hidden && event.key === "ArrowLeft") galleryMove(-1);
+    if (activeGalleryCat && event.key === "ArrowRight") galleryMove(1);
+    if (activeGalleryCat && event.key === "ArrowLeft") galleryMove(-1);
   });
   document.addEventListener("pointerdown", function (event) {
     if (event.target.closest(".tinder-photo")) tinderStartX = event.clientX;
