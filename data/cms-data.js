@@ -254,11 +254,11 @@ window.KOCIAMBERKI_CMS = {
       title: "Paczka, która zmienia zwykły dzień w dobry dzień.",
       intro: "Najbardziej przydają nam się rzeczy z listy poniżej. Przy kotach ze specjalnymi potrzebami aktualizujemy ją na bieżąco.",
       needs: [
-        { name: "Karma mokra wysokomięsna", note: "Mile widziane dobre składy i różne smaki." },
-        { name: "Środki czystości", note: "Płyny do podłóg, ręczniki papierowe i worki na śmieci." },
-        { name: "Żwirek", note: "Zbrylający, najlepiej drobny i bezzapachowy." },
-        { name: "Suplementy", note: "Po wcześniejszym uzgodnieniu aktualnych potrzeb." },
-        { name: "Smaczki", note: "Pomagają w oswajaniu i budowaniu dobrych skojarzeń." }
+        { name: "Karma mokra wysokomięsna", note: "Różne smaki pomagają dopasować posiłek do kociego apetytu.", image: "assets/needs/wet-food.svg", examples: ["Puszki z wysoką zawartością mięsa", "Kilka smaków i konsystencji", "Mniejsze gramatury dla wrażliwych brzuszków"] },
+        { name: "Środki czystości", note: "Czysta przestrzeń to większy komfort i bezpieczeństwo podopiecznych.", image: "assets/needs/cleaning.svg", examples: ["Płyn do podłóg bezpieczny dla zwierząt", "Ręczniki papierowe i worki na śmieci", "Gąbki i ściereczki z mikrofibry"] },
+        { name: "Żwirek", note: "Najlepiej sprawdza się drobny, zbrylający i bezzapachowy.", image: "assets/needs/litter.svg", examples: ["Żwirek drobnoziarnisty", "Wersja bezzapachowa", "Bentonitowy lub roślinny"] },
+        { name: "Suplementy", note: "Przy suplementach prosimy wcześniej zapytać o aktualne zalecenia.", image: "assets/needs/supplements.svg", examples: ["Probiotyki lub preparaty zalecone przez weterynarza", "Produkty dopasowane do potrzeb konkretnego kota"] },
+        { name: "Smaczki", note: "Pomagają w oswajaniu, nauce i budowaniu dobrych skojarzeń.", image: "assets/needs/treats.svg", examples: ["Liofilizowane kąski", "Suszone mięsne przysmaki", "Małe smaczki do nagradzania"] }
       ],
       courierNote: "Wysyłkę kurierem ustalamy indywidualnie. Napisz do nas na Facebooku lub Instagramie, a adres przekażemy w wiadomości prywatnej."
     },
@@ -312,6 +312,7 @@ window.KOCIAMBERKI_CMS = {
           title: "Ratujmy Kociamberkowo",
           category: "Zbiórka główna",
           description: "Wsparcie spłaty faktur weterynaryjnych i codziennej opieki nad kotami z kociarni. Aktualny opis i postęp sprawdzisz na Pomagam.pl.",
+          widgetUrl: "https://pomagam.pl/arryry/widget/large",
           image: "https://static.pomagam.pl/media/project_photos/cache/F0zRL5DD0_kU.jpg",
           raised: 12996,
           target: 20000,
@@ -323,6 +324,7 @@ window.KOCIAMBERKI_CMS = {
           title: "Bieżąca zbiórka Kociamberków",
           category: "Aktualny cel",
           description: "Ta zbiórka wspiera aktualny cel dziewczyn. Szczegóły, postęp i sposób wykorzystania wpłat sprawdzisz bezpośrednio na stronie kampanii.",
+          widgetUrl: "https://pomagam.pl/gwmwhm/widget/large",
           image: "https://static.pomagam.pl/media/project_photos/cache/F0zRL5DD0_kU.jpg",
           raised: null,
           target: null,
@@ -331,7 +333,7 @@ window.KOCIAMBERKI_CMS = {
           linkKey: "currentFundraiser"
         }
       ],
-      manualUpdateNote: "Kwoty i liczby wspierających w tym podglądzie są wpisywane ręcznie. Przed publikacją sprawdź je na stronie każdej zbiórki."
+      manualUpdateNote: "Widżety pobierają aktualne informacje o zbiórkach bezpośrednio z Pomagam.pl. Jeśli widżet nie wyświetli się w Twojej przeglądarce, otwórz zbiórkę na platformie."
     },
     tax: {
       eyebrow: "1,5% podatku",
